@@ -1,6 +1,6 @@
 {
   "name": "rescan",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Scan Redis keys and pretty and colourfully print to console.",
   "main": "lib/index.js",
   "bin": {
