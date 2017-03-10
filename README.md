@@ -13,6 +13,11 @@ See `lib/spec.js` https://github.com/evanx/rescan/blob/master/lib/spec.js
         description: 'the matching pattern for Redis scan',
         example: '*'
     },
+    action: {
+        description: 'the action to perform e.g. print or delete',
+        options: ['print', 'delete'],
+        default: 'print'
+    },    
     field: {
         description: 'the field name for hashes',
         required: false
