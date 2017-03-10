@@ -1,10 +1,10 @@
 {
   "name": "rescan",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Scan Redis keys and pretty and colourfully print to console.",
   "main": "lib/index.js",
   "bin": {
-      "rescan": "lib/rescan.js"
+      "rescan": ["node7", "--harmony", "lib/index.js"]
   },
   "scripts": {
     "lint": "eslint --cache src",
