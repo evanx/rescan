@@ -1,6 +1,6 @@
 {
   "name": "rescan",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Scan Redis keys and pretty and colourfully print to console.",
   "main": "lib/index.js",
   "bin": {
@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "cli-color": "^1.2.0",
-    "redis-app": "^0.9.16"
+    "redis-app": "^0.10.1"
   },
   "devDependencies": {
     "eslint": "^3.12.2"

@@ -7,7 +7,12 @@ Scan Redis keys and pretty and colourfully print to console.
 
 ## Installation
 
-Requires a custom script running `lib/index.js` via Node v7 e.g. `node --harmony`
+Requires a custom script running `lib/index.js` via Node v7 e.g.
+```
+/usr/local/n/versions/node/7.7.1/bin/node $HOME/rescan/lib/index.js
+```
+
+Note that early v7 versions require `--harmony`
 
 
 ## Config
