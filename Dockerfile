@@ -1,5 +1,5 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:latest
 ADD package.json .
 RUN npm install --silent
 ADD lib lib
-CMD ["node", "lib/index.js"]
+CMD ["node", "--harmony", "lib/index.js"]
