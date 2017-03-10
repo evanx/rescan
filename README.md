@@ -5,6 +5,23 @@ Scan Redis keys and pretty and colourfully print to console.
 <img src='https://raw.githubusercontent.com/evanx/rescan/master/docs/readme/images/main.png'>
 
 
+## Installation
+
+You can install into your `~/node_modules`
+```
+npm install rescan
+```
+
+It will install `rescan` binary into `node_modules/.bin`
+```
+pattern='*' node_modules/.bin/rescan
+```
+
+In your `~/.bashrc` you can append your $HOME/node_modules/.bin` to your `PATH`
+```
+export PATH=$PATH:$HOME/node_modules/.bin
+```
+
 ## Config
 
 See `lib/spec.js` https://github.com/evanx/rescan/blob/master/lib/spec.js
