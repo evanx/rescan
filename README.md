@@ -7,36 +7,8 @@ Scan Redis keys and pretty and colourfully print to console.
 
 ## Installation
 
-See https://github.com/evanx/rescan/blob/master/bin/rescan.sh
+Requires a custom script running `lib/index.js` via Node v7 e.g. `node --harmony`
 
-You can install into your `~/node_modules`
-```
-cd
-npm install rescan
-```
-
-It will install `rescan` binary into `node_modules/.bin`
-```
-pattern='*' node_modules/.bin/rescan
-```
-where this is a `bash` script to run the following command
-```
-node7 ~/node_modules/rescan/lib/index.js
-```
-where e.g. `/usr/local/bin/node7` should be symlinked to Node v7
-```
-ln -s /usr/local/n/versions/node/7.7.1/bin/node /usr/local/bin/node7
-```
-where this is installed via `n`
-```
-sudo npm install -g n
-sudo n latest
-```
-
-In your `~/.bashrc` you can append your $HOME/node_modules/.bin` to your `PATH`
-```
-export PATH=$PATH:$HOME/node_modules/.bin
-```
 
 ## Config
 
