@@ -4,7 +4,7 @@
   "description": "Scan Redis keys and pretty and colourfully print to console.",
   "main": "lib/index.js",
   "bin": {
-      "rescan": ["node7", "--harmony", "lib/index.js"]
+      "rescan": "./lib/index.js"
   },
   "scripts": {
     "lint": "eslint --cache src",
