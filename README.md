@@ -39,7 +39,7 @@ We can inspect TTL via Redis `TTL` command for each scanned key:
 ```
 pattern=* command=ttl rescan | sort -nr
 ```
-Note that we print the TTL and then the key, to facilitate piping to `sort -nr`
+Note that we print the TTL and then the key, to facilitate piping to `sort -nr` as above.
 
 Incidently, we can specify `min` and `max` for the TTL to filter which keys to print:
 ```
