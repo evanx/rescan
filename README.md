@@ -47,11 +47,6 @@ limit=0 min=0 max=3600 pattern=* command=ttl rescan
 ```
 to find all keys expiring in the next hour.
 
-If you wish to get the key only, then pipe as follows:
-```
-limit=0 min=0 max=3600 pattern=* command=ttl rescan | cut -f2 -d' '
-```
-
 We can specify an `command` e.g. `del` to delete all keys matching the pattern:
 ```
 pattern=tmp:* command=del rescan
