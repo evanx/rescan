@@ -41,7 +41,7 @@ pattern=* command=ttl rescan | sort -nr
 ```
 Note that we print the TTL and then the key, to facilitate piping to `sort -nr` as above.
 
-Incidently, we can specify `min` and `max` for the TTL to filter which keys to print:
+Incidently, we can filter the `min` and `max` TTL to print:
 ```
 limit=0 min=0 max=3600 pattern=* command=ttl rescan
 ```
