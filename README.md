@@ -2,7 +2,7 @@
 
 Scan Redis keys and pretty and colourfully print to console.
 
-<img src='https://raw.githubusercontent.com/evanx/rescan/master/docs/readme/images/main.png'>
+<img src='https://raw.githubusercontent.com/evanx/rescan/master/docs/readme/images/main3.png'>
 
 
 ## Installation
