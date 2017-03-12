@@ -14,37 +14,105 @@ Requires a custom script running `lib/index.js` via Node v7 e.g.
 
 Note that early v7 versions require `--harmony`
 
+Alternatively script `Docker`
+```
+docker build -t rescan https://github.com/evanx/rescan.git
+echo 'docker run --network=host -i rescan' > /usr/bin/local/rescan
+chmod 755 /usr/bin/rescan
+```
+
+## Usage
+
+Parameters are passed via environment variables.
+
+We always specify a `pattern` for the Redis `SCAN`
+```
+pattern=* rescan
+```
+
+We can inspect types via Redis `TYPE` command for each scanned key:
+```
+pattern=* command=type rescan
+```
+
+We can inspect TTL via Redis `TTL` command for each scanned key:
+```
+pattern=* command=ttl rescan
+```
+Incidently, we can specify `min` and `max` for the TTL to filter which keys to print:
+```
+limit=0 min=0 max=3600 pattern=* command=ttl rescan
+```
+to find all keys expiring in the next hour.
+
+We can specify an `command` e.g. `del` to delete all keys matching the pattern:
+```
+pattern=tmp:* command=del rescan
+```
+
+The following commands are supported:
+- `del`
+- `hkeys`
+- `hgetall`
+- `hget` - requires `field` parameter
+- `llen`
+- `type`
+- `ttl`
+- `expire` - requires `ttl` parameter
+- `persist`
+
+In the case of `expire` we specify a TTL in seconds:
+```
+pattern=tmp:* command=expire ttl=3600 rescan
+```
+for a TTL of 3600 seconds i.e. 1 hour.
+
 
 ## Config
 
 See `lib/spec.js` https://github.com/evanx/rescan/blob/master/lib/spec.js
 ```javascript
-    pattern: {
-        description: 'the matching pattern for Redis scan',
-        example: '*'
-    },
-    action: {
-        description: 'the action to perform e.g. print or delete',
-        options: ['print', 'delete'],
-        default: 'print'
-    },    
-    field: {
-        description: 'the field name for hashes',
-        required: false
-    },
-    format: {
-        description: 'the format',
-        options: ['terse', 'verbose'],
-        default: 'terse'
-    },    
-    port: {
-        description: 'the Redis port',
-        default: 6379
-    },
-    host: {
-        description: 'the Redis host',
-        default: 'localhost'
-    },
+pattern: {
+    description: 'the matching pattern for Redis scan',
+    example: '*'
+},
+field: {
+    description: 'the field name for hashes',
+    requiredEnv: env => ['hget'].includes(env.command)
+},
+command: {
+    description: 'the command to perform',
+    options: ['del', 'hkeys', 'hgetall', 'llen', 'hget', 'ttl', 'type', 'expire', 'persist'],
+    default: 'none'
+},
+ttl: {
+    description: 'the TTL for expire command',
+    unit: 's',
+    requiredEnv: env => ['expire'].includes(env.command)        
+},
+min: {
+    description: 'the minimum value to filter keys e.g. TTL',
+    type: 'integer',
+    required: false
+},
+max: {
+    description: 'the maximum value to filter keys e.g. TTL',
+    type: 'integer',
+    required: false
+},
+limit: {
+    description: 'the maximum number of keys to print',
+    note: 'zero means unlimited',
+    default: 30
+},
+port: {
+    description: 'the Redis host port',
+    default: 6379
+},
+host: {
+    description: 'the Redis host address',
+    default: 'localhost'
+},
 ```
 where the default Redis `host` is `localhost`
 
