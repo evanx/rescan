@@ -30,23 +30,6 @@ We always specify a `pattern` for the Redis `SCAN`
 pattern=* rescan
 ```
 
-We can inspect types via Redis `TYPE` command for each scanned key:
-```
-pattern=* command=type rescan
-```
-
-We can inspect TTL via Redis `TTL` command for each scanned key:
-```
-pattern=* command=ttl rescan | sort -nr
-```
-Note that we print the TTL and then the key, to facilitate piping to `sort -nr` as above.
-
-Incidently, we can filter the `min` and `max` TTL to print:
-```
-limit=0 min=0 max=3600 pattern=* command=ttl rescan
-```
-to find all keys expiring in the next hour.
-
 We can specify an `command` e.g. `del` to delete all keys matching the pattern:
 ```
 pattern=tmp:* command=del rescan
@@ -69,6 +52,22 @@ pattern=tmp:* command=expire ttl=3600 rescan
 ```
 for a TTL of 3600 seconds i.e. 1 hour.
 
+We can inspect types via Redis `TYPE` command for each scanned key:
+```
+pattern=* command=type rescan
+```
+
+We can inspect TTL via Redis `TTL` command for each scanned key:
+```
+pattern=* command=ttl rescan | sort -nr
+```
+Note that we print the TTL and then the key, to facilitate piping to `sort -nr` as above.
+
+Incidently, we can filter the `min` and `max` TTL to print:
+```
+limit=0 min=0 max=3600 pattern=* command=ttl rescan
+```
+to find all keys expiring in the next hour.
 
 ## Config
 
