@@ -119,28 +119,36 @@ where the default Redis `host` is `localhost`
 
 See `lib/main.js` https://github.com/evanx/rescan/blob/master/lib/main.js
 ```javascript
-    let cursor;
-    while (true) {
-        const [result] = await multiExecAsync(client, multi => {
-            multi.scan(cursor || 0, 'match', config.pattern);
+let command = getCommand(config);
+const type = config.type || getTypeCommand(command);
+while (true) {
+    const [result] = await multiExecAsync(client, multi => {
+        multi.scan(cursor || 0, 'match', config.pattern);
+    });
+    cursor = parseInt(result[0]);
+    const scannedKeys = result[1];
+    scanCount += scannedKeys.length;
+    const keys = await filterKeysType(scannedKeys, type);
+    count += keys.length;
+    if (config.field) {
+        const results = await multiExecAsync(client, multi => {
+            keys.forEach(key => multi.hget(key, config.field));
         });
-        cursor = parseInt(result[0]);
-        const keys = result[1];
-        const types = await multiExecAsync(client, multi => {
-            keys.forEach(key => multi.type(key));
+        keys.forEach((key, index) => {
+            const hvalue = results[index];
+            if (hvalue !== null) {
+                console.log([clc.cyan(key), hvalue].join(' '));
+            }
         });
-        const hashesKeys = keys.filter((key, index) => types[index] === 'hash');
-        if (hashesKeys.length) {
-            count += hashesKeys.length;
-            const results = await multiExecAsync(client, multi => {
-                hashesKeys.forEach(key => multi.hkeys(key));
+    } else if (command === 'del') {
+        const results = await multiExecAsync(client, multi => {
+            keys.forEach(key => {
+                console.log(clc.blue(key));
+                multi.del(key);
             });
-            hashesKeys.forEach((key, index) => {
-                const result = results[index];
-                console.log(`${clc.cyan(key)} ${result.join(' ')}`);
-            });
+        });
         }
-    }
+    } ...
 ```
 
 ### Application archetype
@@ -152,12 +160,13 @@ See `lib/index.js` https://github.com/evanx/rescan/blob/master/lib/index.js
 require('redis-app')(
     require('../package'),
     require('./spec'),
+    async deps => Object.assign(global, deps),
     () => require('./main')
 ).catch(err => {
     console.error(err);
 });
 ```
-where the `config` is extracted from the `spec` defaults and `process.env` overrides. It is set on `global` before `main` is invoked. Similarly other typical application dependencies including `logger` and `lodash`
+where the `config` is extracted from the `spec` defaults and `process.env` overrides. We choose to set `config` et al on `global` before `main` is invoked.
 
 
 ## Development
