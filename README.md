@@ -50,14 +50,14 @@ pattern=tmp:* command=del rescan
 
 The following commands are supported:
 - `del`
-- `hkeys`
-- `hgetall`
-- `hget` - requires `field` parameter
-- `llen`
-- `type`
-- `ttl`
 - `expire` - requires `ttl` parameter
+- `hget` - requires `field` parameter
+- `hgetall`
+- `hkeys`
+- `llen`
 - `persist`
+- `ttl`
+- `type`
 
 In the case of `expire` we specify a TTL in seconds e.g. set to expire in an hour:
 ```
