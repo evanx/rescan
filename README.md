@@ -46,11 +46,10 @@ The following commands are supported:
 - `expire` - requires `ttl` parameter
 - `persist`
 
-In the case of `expire` we specify a TTL in seconds:
+In the case of `expire` we specify a TTL in seconds e.g. set to expire in an hour:
 ```
 pattern=tmp:* command=expire ttl=3600 rescan
 ```
-for a TTL of 3600 seconds i.e. 1 hour.
 
 We can inspect types via Redis `TYPE` command for each scanned key:
 ```
@@ -63,11 +62,10 @@ pattern=* command=ttl rescan | sort -nr
 ```
 Note that we print the TTL and then the key, to facilitate piping to `sort -nr` as above.
 
-Incidently, we can filter the `min` and `max` TTL to print:
+Incidently, we can filter the `min` and `max` e.g. to find all keys expiring in the next hour:
 ```
 limit=0 min=0 max=3600 pattern=* command=ttl rescan
 ```
-to find all keys expiring in the next hour.
 
 ## Config
 
