@@ -37,13 +37,20 @@ pattern=* command=type rescan
 
 We can inspect TTL via Redis `TTL` command for each scanned key:
 ```
-pattern=* command=ttl rescan
+pattern=* command=ttl rescan | sort -nr
 ```
+Note that we print the TTL and then the key, to facilitate piping to `sort -nr`
+
 Incidently, we can specify `min` and `max` for the TTL to filter which keys to print:
 ```
 limit=0 min=0 max=3600 pattern=* command=ttl rescan
 ```
 to find all keys expiring in the next hour.
+
+If you wish to get the key only, then pipe as follows:
+```
+limit=0 min=0 max=3600 pattern=* command=ttl rescan | cut -f2 -d' '
+```
 
 We can specify an `command` e.g. `del` to delete all keys matching the pattern:
 ```
