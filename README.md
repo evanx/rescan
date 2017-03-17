@@ -117,6 +117,16 @@ limit: {
     note: 'zero means unlimited',
     default: 30
 },
+filter: {
+    description: 'RegExp to filter field values',
+    required: false
+},
+format: {
+    description: 'the format to print the key and optional details',
+    required: false,
+    options: ['verbose', 'terse', 'key', 'value', 'both'],
+    default: 'verbose',
+},
 port: {
     description: 'the Redis host port',
     default: 6379
