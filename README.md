@@ -30,15 +30,6 @@ Alternatively `alias` into your shell e.g. via your `.bashrc`
 alias rescan='mode=quiet /usr/local/n/versions/node/7.7.4/bin/node --harmony ~/rescan/lib/index.js'
 ```
 
-Alternatively create a `docker run` script:
-```
-docker build -t rescan https://github.com/evanx/rescan.git
-echo 'docker run --network=host -i -e mode=quiet rescan' > $HOME/bin/rescan
-chmod 755 $HOME/bin/rescan
-```
-where your `$HOME/bin` is in your path and you are in the `docker` group. Alternatively create a shared script e.g. `/usr/local/bin/rescan`
-
-
 ## Usage
 
 Parameters are passed via environment variables.
