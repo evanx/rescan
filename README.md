@@ -13,7 +13,7 @@ Note that early v7 versions require `--harmony` which is default from v7.6
 
 We suggest that you create a custom `rescan` script in your `PATH` to run `lib/index.js` via Node v7 e.g.
 ```
-/usr/local/n/versions/node/7.7.1/bin/node $HOME/rescan/lib/index.js
+/usr/local/n/versions/node/7.7.4/bin/node $HOME/rescan/lib/index.js
 ```
 where
 - the latest `node` version is installed e.g. via `n latest`
@@ -25,10 +25,15 @@ cd rescan
 npm install
 ```
 
+Alternatively `alias` into your shell e.g. via your `.bashrc`
+```
+alias rescan='mode=quiet /usr/local/n/versions/node/7.7.4/bin/node --harmony ~/rescan/lib/index.js'
+```
+
 Alternatively create a `docker run` script:
 ```
 docker build -t rescan https://github.com/evanx/rescan.git
-echo 'docker run --network=host -i rescan' > $HOME/bin/rescan
+echo 'docker run --network=host -i -e mode=quiet rescan' > $HOME/bin/rescan
 chmod 755 $HOME/bin/rescan
 ```
 where your `$HOME/bin` is in your path and you are in the `docker` group. Alternatively create a shared script e.g. `/usr/local/bin/rescan`
